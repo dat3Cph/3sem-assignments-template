@@ -61,9 +61,10 @@ public class Main {
 
         System.out.println("------------------------------------------------------------------------------");
 
-        Map<Integer, List<Employee>> employeesBirthByMonths = groupedByBirthdaysMap(employeesWithAges);
-        for (Map.Entry<Integer,List<Employee>> entry: employeesBirthByMonths.entrySet()) {
-            System.out.println("Month: "+entry.getKey()+ " Amount: "+ entry.getValue().size());
+        Map<Month, List<Employee>> employeesBirthByMonths = groupedByBirthdaysMap(employeesWithAges);
+
+        for (Map.Entry<Month,List<Employee>> entry: employeesBirthByMonths.entrySet()) {
+            System.out.println("Month: "+entry.getKey()+ ": Amount: "+ entry.getValue().size());
             for (Employee e: entry.getValue()) {
                 System.out.println(e);
             }
@@ -121,8 +122,8 @@ public class Main {
         return result;
     }
 
-    public static Map<Integer,List<Employee>> groupedByBirthdaysMap(List<Employee> list){
-        Map<Integer, List<Employee>> result = new HashMap<>();
+    public static Map<Month,List<Employee>> groupedByBirthdaysMap(List<Employee> list){
+        Map<Month, List<Employee>> result = new HashMap<>();
         for (int i = 1; i < 13; i++){
             List<Employee> thisMonth = new ArrayList<>();
             for (Employee e: list) {
@@ -130,7 +131,7 @@ public class Main {
                     thisMonth.add(e);
                 }
             }
-            result.put(i,thisMonth);
+            result.put(Month.of(i),thisMonth);
         }
         return result;
     }
