@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -34,9 +31,13 @@ public class Main {
                 LocalDate.of(2003,2,8),
                 LocalDate.of(2003,1,2),
                 LocalDate.of(1999,1,28),
+                LocalDate.of(1996,2,10),
+                LocalDate.of(1997,2,15),
+                LocalDate.of(1995,1,31),
+                LocalDate.of(1994,1,22),
         };
 
-        Supplier<Employee> employeeSupplier = () -> new Employee(names[random.nextInt(5)],dates[random.nextInt(5)]);
+        Supplier<Employee> employeeSupplier = () -> new Employee(names[random.nextInt(5)],dates[random.nextInt(10)]);
         List<Employee> employees = employ(10,employeeSupplier);
         List<Employee> employeesWithAges = calculateAge(employees);
         employeesWithAges.forEach(System.out::println);
@@ -56,29 +57,19 @@ public class Main {
 
         //////////////////////////////////////// 4. Group employees by birth month and display the count of employees in each group ////////////////////////////////////////
 
-        Employee[][] employeesByBirthdays = groupedByBirthdays(employeesWithAges);
 
 
         System.out.println("------------------------------------------------------------------------------");
 
-        for(Employee[] x : employeesByBirthdays){
-            int count = 0;
-            if(x != null){
-                for(Employee e: x){
-                    if(e != null && e.getBirthdate() != null){
-                        count++;
-                        System.out.println(e + " "+ e.getBirthdate().getMonth() +" "+ count);
-
-                    }
-                }
-                if(count > 0){
-                    System.out.println();
-                    System.out.println("Amount of employees who have birthdays in the month above: "+count);
-                    System.out.println();
-                }
+        Map<Integer, List<Employee>> employeesBirthByMonths = groupedByBirthdaysMap(employeesWithAges);
+        for (Map.Entry<Integer,List<Employee>> entry: employeesBirthByMonths.entrySet()) {
+            System.out.println("Month: "+entry.getKey()+ " Amount: "+ entry.getValue().size());
+            for (Employee e: entry.getValue()) {
+                System.out.println(e);
             }
 
         }
+
 
         System.out.println("------------------------------------------------------------------------------");
 
@@ -86,6 +77,8 @@ public class Main {
 
         Predicate<Employee> filterByCurrentMonth = (a) -> a.getBirthdate().getMonth().equals(LocalDate.now().getMonth());
         List<Employee> employeesWithBirthdayThisMonth = birthdayInCurrentMonth(employeesWithAges,filterByCurrentMonth);
+
+        System.out.println("How many people that have their birthday in the current month:");
         employeesWithBirthdayThisMonth.forEach(System.out::println);
 
     }
@@ -128,73 +121,18 @@ public class Main {
         return result;
     }
 
-    public static Employee[][] groupedByBirthdays(List<Employee> list){
-        Employee[][] employees = new Employee[13][list.size()];
-        int janCount = 0;
-        int febCount = 0;
-        int marchCount = 0;
-        int aprilCount = 0;
-        int mayCount = 0;
-        int juneCount = 0;
-        int julyCount = 0;
-        int augCount = 0;
-        int septCount = 0;
-        int octCount = 0;
-        int novCount = 0;
-        int decCount = 0;
-        for (Employee e: list) {
-            switch(e.getBirthdate().getMonth()){
-                case JANUARY:
-                    employees[1][janCount] = e;
-                    janCount++;
-                    break;
-                case FEBRUARY:
-                    employees[2][febCount] = e;
-                    febCount++;
-                    break;
-                case MARCH:
-                    employees[3][marchCount] = e;
-                    marchCount++;
-                    break;
-                case APRIL:
-                    employees[4][aprilCount] = e;
-                    aprilCount++;
-                    break;
-                case MAY:
-                    employees[5][mayCount] = e;
-                    mayCount++;
-                    break;
-                case JUNE:
-                    employees[6][juneCount] = e;
-                    juneCount++;
-                    break;
-                case JULY:
-                    employees[7][julyCount] = e;
-                    julyCount++;
-                    break;
-                case AUGUST:
-                    employees[8][augCount] = e;
-                    augCount++;
-                    break;
-                case SEPTEMBER:
-                    employees[9][septCount] = e;
-                    septCount++;
-                    break;
-                case OCTOBER:
-                    employees[10][octCount] = e;
-                    octCount++;
-                    break;
-                case NOVEMBER:
-                    employees[11][novCount] = e;
-                    novCount++;
-                    break;
-                case DECEMBER:
-                    employees[12][decCount] = e;
-                    decCount++;
-                    break;
+    public static Map<Integer,List<Employee>> groupedByBirthdaysMap(List<Employee> list){
+        Map<Integer, List<Employee>> result = new HashMap<>();
+        for (int i = 1; i < 13; i++){
+            List<Employee> thisMonth = new ArrayList<>();
+            for (Employee e: list) {
+                if(e.getBirthdate().getMonth().getValue() == i){
+                    thisMonth.add(e);
+                }
             }
+            result.put(i,thisMonth);
         }
-        return employees;
+        return result;
     }
 
     public static List<Employee> birthdayInCurrentMonth(List<Employee> list, Predicate<Employee> predicate){
