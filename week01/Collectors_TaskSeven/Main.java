@@ -1,9 +1,6 @@
 package Collectors_TaskSeven;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -26,7 +23,31 @@ public class Main {
         System.out.println("--------------------------------------------------------------------------------------------------------");
 
         Map<String, List<Transaction>> groupByCurrency = transactions.stream().collect(Collectors.groupingBy(Transaction::getCurrency));
-        groupByCurrency.
+        groupByCurrency.forEach((a,b) -> {
+            System.out.println("Currency: "+a);
+            double currencySum = 0;
+            for (Transaction t: b) {
+                currencySum += t.getAmount();
+            }
+            System.out.println("Currency amount: "+currencySum);
+        });
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        ///////////////////////////////////////////////////////////   Highest transaction amount   ////////////////////////////////////////////////////////////////////////
+
+        Transaction highestTransaction = transactions.stream().max(Comparator.comparing(Transaction::getAmount)).get();
+        System.out.println(highestTransaction.getAmount());
+
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        ///////////////////////////////////////////////////////////   Average transaction amount   ////////////////////////////////////////////////////////////////////////
+
+
+        OptionalDouble averageTransactionAmount = transactions.stream().mapToDouble(Transaction::getAmount).average();
+        System.out.println(averageTransactionAmount);
+
 
     }
 }
