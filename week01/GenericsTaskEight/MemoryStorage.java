@@ -8,20 +8,30 @@ import java.util.regex.Pattern;
 
 public class MemoryStorage<T> implements DataStorage<T>{
 
-    static int id = 0;
-    Map<Integer, T> storage = new HashMap<>();
+    Map<String, T> storage = new HashMap<>();
     //List<T> storage = new ArrayList<>();
 
     @Override
     public String store(T data) {
         if(data != null){
-            storage.put(id,data);
-            id++;
-            return String.valueOf(id);
+            String hash = String.valueOf(data.hashCode());
+            storage.put(hash,data);
+            return hash;
         }
         return "Error while adding data: Data cannot be null";
     }
 
+    @Override
+    public T retrieve(String source) {
+        if(storage.containsKey(source)){
+            return storage.get(source);
+        }
+        return null;
+    }
+
+/*
+
+//Some weird method i cooked up checking the type of input.
     @Override
     public T retrieve(String source) {
         T obj = null;
@@ -55,4 +65,6 @@ public class MemoryStorage<T> implements DataStorage<T>{
         }
         return obj;
     }
+*/
+
 }

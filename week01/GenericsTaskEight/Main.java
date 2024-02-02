@@ -1,23 +1,41 @@
 package GenericsTaskEight;
 
+import java.io.File;
+
 public class Main {
     public static void main(String[] args) {
+
+        //String Memory Storage:
         DataStorage<String> stringDataStorage = new MemoryStorage<>();
-        stringDataStorage.store("Hi my name is John.");
+        String id = stringDataStorage.store("Test");
+        String result = stringDataStorage.retrieve(id);
+
+        System.out.println(result);
+
+
+        //Integer Memory Storage:
         DataStorage<Integer> integerDataStorage = new MemoryStorage<>();
-        integerDataStorage.store(2);
-        DataStorage<Double> doubleDataStorage = new MemoryStorage<>();
-        doubleDataStorage.store(2.2);
-
-        double resultDouble = doubleDataStorage.retrieve("2.2");
-        System.out.println(resultDouble);
-
-        int resultInt = integerDataStorage.retrieve("2");
+        String intId = integerDataStorage.store(2);
+        int resultInt = integerDataStorage.retrieve(intId);
         System.out.println(resultInt);
 
-        String result = stringDataStorage.retrieve("0");
-        String testResult = stringDataStorage.retrieve("Hi my name is John.");
-        System.out.println(result);
-        System.out.println(testResult);
+        //Double Memory Storage:
+        DataStorage<Double> doubleDataStorage = new MemoryStorage<>();
+        String doubleId = doubleDataStorage.store(2.2);
+
+        double resultDouble = doubleDataStorage.retrieve(doubleId);
+        System.out.println(resultDouble);
+
+
+        //String file storage:
+        DataStorage<String> stringToFileStorage = new FileStorage<>();
+        String filename = stringToFileStorage.store("test");
+        String out = stringToFileStorage.retrieve(filename);
+
+        System.out.println(out);
+
+
+
+
     }
 }

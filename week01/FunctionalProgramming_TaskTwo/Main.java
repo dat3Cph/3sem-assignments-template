@@ -9,6 +9,12 @@ public class Main {
         MyTransformingType multiplyInt = (a) -> Math.multiplyExact(a,2);
         MyValidatingType isDivisibleWith7 = (a) -> a % 7 == 0;
 
+
+        MyTransformingType multiplyIntEx = (a) -> {
+            int result = Math.multiplyExact(a,2);
+            return result;
+        };
+
         //Integers to use as parameters:
         int[] nums = {1,4,5,10,23,20,28,7,63};
 
