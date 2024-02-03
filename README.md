@@ -1,4 +1,4 @@
 # Third semester assignment template
 
 
-### Your name 
+### Nicklas Waldemar Seier Winther - cph-nw89
