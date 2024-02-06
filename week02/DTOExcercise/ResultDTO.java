@@ -1,14 +1,12 @@
 package DTOExcercise;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
-public class ResultDTO {
+public class ResultDTO extends Media {
 
     MovieDTO[] movie_results;
-
-    public ResultDTO(MovieDTO[] results){
-        this.movie_results = results;
-    }
+    MovieDTO[] results;
 
     @Override
     public String toString() {
@@ -16,4 +14,5 @@ public class ResultDTO {
                 "results=" + Arrays.toString(this.movie_results) +
                 '}';
     }
+
 }
