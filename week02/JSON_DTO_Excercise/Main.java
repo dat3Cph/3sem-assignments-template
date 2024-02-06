@@ -18,13 +18,23 @@ public class Main {
 
     public static void main(String[] args) {
         File file = new File("C:\\Users\\Nicklas\\Desktop\\GitHub\\3sem-assignments-template-cph-nw89\\week02\\JSON_DTO_Excercise\\account.json");
+
+        ///////////////////////////////////////////////// ARRAY OF ACCOUNT OBJECTS FROM JSON ////////////////////////////////////////////////////////////
         Account[] accounts = jsonToAccount(file);
         System.out.println(Arrays.toString(accounts));
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
 
+
+        ////////////////////////////////////////////////////// ACCOUNT OBJECT TO ACCOUNTDTO ////////////////////////////////////////////////////////////
         AccountDTO accountDTO = accountToDTO(accounts[0]);
         System.out.println(accountDTO);
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
 
+        /////////////////////////////////////////////////// ARRAY OF ACCOUNT OBJECTS TO ACCOUNTDTOS ////////////////////////////////////////////////////////////
         AccountDTO[] accountDTOS = accountsToDTOS(accounts);
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
+
+        ////////////////////////////////////////////////// METHOD FOR DISPLAYING DTOS NICELY ///////////////////////////////////////////////////////////////
         printDTOS(accountDTOS);
 
     }
