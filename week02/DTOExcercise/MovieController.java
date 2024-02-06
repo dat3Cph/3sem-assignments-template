@@ -47,6 +47,13 @@ public class MovieController<T> implements MediaController<Media>  {
         String url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&vote_average.lte={MOVIE RATING}&vote_count.gte=100".replace("{MOVIE RATING}",rating);
         String json = getResponseBody(url);
         ResultDTO movieResults = gson.fromJson(json,ResultDTO.class);
+
+        for(int i = 0; i < movieResults.results.length-1; i++){
+            String[] year = movieResults.results[i].getRelease_date().split("-");
+            movieResults.results[i].setReleaseYear(year[0]);
+            movieResults.results[i].setReleaseDate(LocalDate.parse(movieResults.results[i].getRelease_date()));
+        }
+
         return movieResults.results;
     }
 
@@ -54,6 +61,13 @@ public class MovieController<T> implements MediaController<Media>  {
         String url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=primary_release_date.desc";
         String json = getResponseBody(url);
         ResultDTO movieResults = gson.fromJson(json,ResultDTO.class);
+
+        for(int i = 0; i < movieResults.results.length-1; i++){
+            String[] year = movieResults.results[i].getRelease_date().split("-");
+            movieResults.results[i].setReleaseYear(year[0]);
+            movieResults.results[i].setReleaseDate(LocalDate.parse(movieResults.results[i].getRelease_date()));
+        }
+
         return movieResults.results;
     }
 
