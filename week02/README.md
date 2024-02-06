@@ -1,10 +1,18 @@
 # Assignment Readme Guidelines
+## Nicklas Waldemar Seier Winter - Cph-nw89
 
 ## Overview
 
-- Your name
-- which assignment are included
-- which one are completed and which one are not
+
+### Completed task:
+
+- Reading data from a Rest API into DTOs.
+- JSON DTO Exercise:
+- - Part 1
+- - Part 2
+- - Part 3
 
 ## Friday presentation
-- add the friday presentation into the weekly folder
+- (?)
+
+----
