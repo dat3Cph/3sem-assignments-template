@@ -17,7 +17,7 @@ public class Main {
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\Nicklas\\Desktop\\GitHub\\3sem-assignments-template-cph-nw89\\week02\\JSON_DTO_Excercise\\account.json");
+        File file = new File("week02/JSON_DTO_Excercise/account.json");
 
         ///////////////////////////////////////////////// ARRAY OF ACCOUNT OBJECTS FROM JSON ////////////////////////////////////////////////////////////
         Account[] accounts = jsonToAccount(file);
@@ -26,9 +26,9 @@ public class Main {
 
 
         ////////////////////////////////////////////////////// ACCOUNT OBJECT TO ACCOUNTDTO ////////////////////////////////////////////////////////////
+        assert accounts != null;
         AccountDTO accountDTO = accountToDTO(accounts[0]);
         System.out.println(accountDTO);
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------");
 
         /////////////////////////////////////////////////// ARRAY OF ACCOUNT OBJECTS TO ACCOUNTDTOS ////////////////////////////////////////////////////////////
         AccountDTO[] accountDTOS = accountsToDTOS(accounts);
@@ -41,10 +41,9 @@ public class Main {
 
 
     public static Account[] jsonToAccount(File jsonFile) {
-        try (Scanner scanner = new Scanner(Paths.get(jsonFile.getAbsolutePath()), StandardCharsets.UTF_8.name());){
+        try (Scanner scanner = new Scanner(Paths.get(jsonFile.getAbsolutePath()), StandardCharsets.UTF_8.name())){
             String json = scanner.useDelimiter("\\A").next();
             JsonElement element = JsonParser.parseString(json);
-            System.out.println(element);
             if(element.isJsonObject()){
                 JsonObject jsonObject = element.getAsJsonObject();
                 ResultDTO result = gson.fromJson(jsonObject,ResultDTO.class);
@@ -83,4 +82,5 @@ public class Main {
             System.out.println("--------------------------------------------------------------------------------------");
         }
     }
+
 }
