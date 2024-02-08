@@ -40,6 +40,24 @@ public class Main {
 
 
         System.out.println("Count should be 11, but is:"+ Counter.getCount());
+
+
+
+        //////////////////////////////////////////////// EXERCISE 3 ////////////////////////////////////////////////////////////////////
+
+        //CHECK AddingNumbers class:
+        //The problem is, that multiple threads try to add into a list on the same index at the same time. Fixed by making the List a
+        //synchronised list.
+
+        ////////////////////////////////////////////// EXERCISE 4 ////////////////////////////////////////////////////////////////////
+        ExecutorService executor2 = Executors.newCachedThreadPool();
+
+        for(int i = 0; i < 1000000; i++){
+            executor2.submit(new Task());
+        }
+
+
+
     }
     private static class Counter{
         private static int count = 0;
