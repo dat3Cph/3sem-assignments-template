@@ -3,6 +3,7 @@ package ThreadsExcercise;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -27,10 +28,17 @@ public class Main {
 
 
         for(int i = 0; i<11; i++){
-            executor1.submit(Counter::increment);
+            executor1.execute(Counter::increment);
         }
 
         executor1.shutdown();
+        try{
+            boolean isDone = executor1.awaitTermination(15, TimeUnit.SECONDS);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+
         System.out.println("Count should be 11, but is:"+ Counter.getCount());
     }
     private static class Counter{

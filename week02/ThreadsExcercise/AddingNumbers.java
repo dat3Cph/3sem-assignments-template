@@ -20,10 +20,9 @@ public class AddingNumbers {
             workingJack.submit(new TaskToAddCount(integerList, count));
         }
         System.out.println("Main is done");
+        workingJack.shutdown();
         try{
-            workingJack.shutdown();
             boolean isDone = workingJack.awaitTermination(15, TimeUnit.SECONDS);
-            System.out.println(isDone);
         }catch(InterruptedException e){
             e.printStackTrace();
         }
