@@ -44,4 +44,16 @@ public class MovieDTO extends Media{
         return release_date;
     }
 
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getReleaseYear() {
+        return releaseYear;
+    }
+
+    public String getVote_average() {
+        return vote_average;
+    }
 }

@@ -1,5 +1,6 @@
 package DTOExcercise;
 
 public abstract class Media {
-    String title;
+    public String title;
+
 }

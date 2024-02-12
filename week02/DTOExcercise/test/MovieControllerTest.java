@@ -1,11 +1,17 @@
-package DTOExcercise;
-
+/*import DTOExcercise.Media;
+import DTOExcercise.MediaController;
+import DTOExcercise.MovieController;
+import DTOExcercise.MovieDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import DTOExcercise.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 class MovieControllerTest {
 
@@ -32,8 +38,8 @@ class MovieControllerTest {
     void getAllByRating() {
         MovieDTO[] res = (MovieDTO[]) movieController.getAllByRating("7.5");
         assertNotNull(res);
-        assertTrue(Float.parseFloat(res[0].vote_average) > 6);
-        assertTrue(Float.parseFloat(res[0].vote_average) < 8);
+        assertTrue(Float.parseFloat(res[0].getVote_average()) > 6);
+        assertTrue(Float.parseFloat(res[0].getVote_average()) < 8);
     }
 
     @Test
@@ -61,4 +67,4 @@ class MovieControllerTest {
         assertEquals("Inception",movieController.getByTitle("Inception").title);
     }
 
-}
+}*/

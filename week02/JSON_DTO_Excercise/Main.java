@@ -1,8 +1,7 @@
-package JSON_DTO_Excercise;
+/*package JSON_DTO_Excercise;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import okio.Path;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -84,3 +83,4 @@ public class Main {
     }
 
 }
+*/
