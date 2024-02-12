@@ -55,7 +55,7 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        configuration.addAnnotatedClass(Unicorn.class);
+        configuration.addAnnotatedClass(Student.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
