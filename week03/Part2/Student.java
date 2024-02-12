@@ -13,6 +13,21 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Student {
+
+    @PrePersist
+    public void PrePersist() throws Exception{
+        if(!this.email.contains("@")){
+            throw new Exception("Not a valid email");
+        }
+    }
+
+    @PreUpdate
+    public void PreUpdate() throws Exception{
+        if(!this.email.contains("@")){
+            throw new Exception("Not a valid email");
+        }
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
