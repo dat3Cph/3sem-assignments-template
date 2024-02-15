@@ -1,5 +1,6 @@
 package ThePointExercise;
 
+import GLSExercise.PackageDAO;
 import Part2.Student;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class HibernateConfig {
 
             Properties props = new Properties();
 
-            props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/points?currentSchema=public");
+            props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/gls?currentSchema=public");
             props.put("hibernate.connection.username", "postgres");
             props.put("hibernate.connection.password", "postgres");
             props.put("hibernate.show_sql", "true"); // show sql in console
@@ -55,7 +56,7 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        configuration.addAnnotatedClass(Point.class);
+        configuration.addAnnotatedClass(GLSExercise.Package.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {

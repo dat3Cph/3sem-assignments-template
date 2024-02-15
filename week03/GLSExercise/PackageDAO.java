@@ -6,7 +6,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Pack;
 
-public class PackageDAO implements DAO<Package> {
+public class PackageDAO {
 
     private static EntityManagerFactory emf;
     private static PackageDAO instance;
@@ -19,18 +19,14 @@ public class PackageDAO implements DAO<Package> {
         return instance;
     }
 
-    @Override
-    public void create(Package in) {
+
+    public boolean create(Package in) {
         try(var em = emf.createEntityManager()){
             em.getTransaction().begin();
             em.persist(in);
             em.getTransaction().commit();
+            return true;
         }
-    }
-
-    @Override
-    public Package read(int id) {
-        return null;
     }
 
     public Package readByTrackingNr(String in){
@@ -41,7 +37,7 @@ public class PackageDAO implements DAO<Package> {
         }
     }
 
-    public void updateStatus(int id, DeliveryStatus in){
+    public boolean updateStatus(int id, DeliveryStatus in){
         try(var em = emf.createEntityManager()){
             em.getTransaction().begin();
             Query query = em.createNamedQuery("Package.updateDeliveryStatus");
@@ -49,17 +45,8 @@ public class PackageDAO implements DAO<Package> {
             query.setParameter("value2",id);
             query.executeUpdate();
             em.getTransaction().commit();
+            return true;
         }
-    }
-
-    @Override
-    public Package update(Package obj, int id) {
-        return null;
-    }
-
-    @Override
-    public void delete(int id) {
-
     }
 
     public boolean deleteById(int id){
@@ -75,6 +62,11 @@ public class PackageDAO implements DAO<Package> {
             }
         }
         return false;
+    }
+
+
+    public static void close(){
+        emf.close();
     }
 
 }
