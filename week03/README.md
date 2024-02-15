@@ -11,8 +11,9 @@
 - The Point Exercise
 - Lombok Exercise
 - DAO Exercise
+- GLS Exercise
 
 ## Friday presentation
-- (?)
+- JPQL
 
 ----
