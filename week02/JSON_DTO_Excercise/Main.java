@@ -1,4 +1,4 @@
-/*package JSON_DTO_Excercise;
+package JSON_DTO_Excercise;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -83,4 +83,3 @@ public class Main {
     }
 
 }
-*/
