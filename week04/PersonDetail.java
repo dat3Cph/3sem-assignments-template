@@ -21,6 +21,13 @@ public class PersonDetail {
     private int age;
 
 
+    public PersonDetail(String address, int zip, String city, int age) {
+        this.address = address;
+        this.zip = zip;
+        this.city = city;
+        this.age = age;
+    }
+
     // Relation 1:1
     @OneToOne
     @MapsId

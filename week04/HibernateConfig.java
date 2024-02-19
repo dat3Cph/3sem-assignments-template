@@ -19,7 +19,7 @@ public class HibernateConfig {
 
             Properties props = new Properties();
 
-            props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/newStudents?currentSchema=public");
+            props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/dolphin?currentSchema=public");
             props.put("hibernate.connection.username", "postgres");
             props.put("hibernate.connection.password", "postgres");
             props.put("hibernate.show_sql", "true"); // show sql in console
@@ -55,6 +55,8 @@ public class HibernateConfig {
     private static void getAnnotationConfiguration(Configuration configuration) {
         configuration.addAnnotatedClass(Person.class);
         configuration.addAnnotatedClass(PersonDetail.class);
+        configuration.addAnnotatedClass(Fee.class);
+        configuration.addAnnotatedClass(Note.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
