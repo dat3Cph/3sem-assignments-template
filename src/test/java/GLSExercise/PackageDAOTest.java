@@ -26,9 +26,6 @@ class PackageDAOTest {
 
     @AfterAll()
     static void afterAll(){
-        emf.close();
-        em.close();
-        PackageDAO.close();
     }
 
 
