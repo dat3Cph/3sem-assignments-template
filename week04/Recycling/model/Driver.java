@@ -50,11 +50,27 @@ public class Driver {
         this.employmentDate = Date.valueOf(LocalDate.now());
 
         String[] date = this.employmentDate.toString().split("-",3);
-        String year = date[0].substring(3);
+        String year = date[0].substring(2);
 
         StringBuilder result = new StringBuilder();
-        result.append(year).append(date[1]).append(date[2]).append("-").append(this.name.charAt(0)).append(this.surname.charAt(0)).append("-").append(random.nextInt(100,999)).append(this.surname.substring(this.surname.length()-2).toUpperCase());
-        this.id = result.toString();
+        result.append(year)
+                .append(date[1])
+                .append(date[2])
+                .append("-")
+                .append(this.name.charAt(0))
+                .append(this.surname.charAt(0))
+                .append("-")
+                .append(random.nextInt(100,999))
+                .append(this.surname.substring(this.surname.length()-1).toUpperCase());
+
+        if(validateDriverId(result.toString())){
+            this.id = result.toString();
+        }
+
     }
 
+
+    public static Boolean validateDriverId(String driverId) {
+        return driverId.matches("[0-9][0-9][0-9][0-9][0-9][0-9]-[A-Z][A-Z]-[0-9][0-9][0-9][A-Z]");
+    }
 }
