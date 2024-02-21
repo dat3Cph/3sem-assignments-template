@@ -1,5 +1,7 @@
 package Recycling.config;
 
+import Recycling.model.Driver;
+import Recycling.model.WasteTruck;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -54,7 +56,8 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        //configuration.addAnnotatedClass(Person.class);
+        configuration.addAnnotatedClass(Driver.class);
+        configuration.addAnnotatedClass(WasteTruck.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {

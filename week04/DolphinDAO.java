@@ -30,9 +30,9 @@ public class DolphinDAO {
             em.getTransaction().begin();
             Person found = em.find(Person.class, p);
             if(found != null){
-                em.merge(p);
+                Person person = em.merge(p);
                 em.getTransaction().commit();
-                return p;
+                return person;
             }
         }
         return null;

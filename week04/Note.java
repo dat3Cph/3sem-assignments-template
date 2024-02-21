@@ -20,6 +20,7 @@ public class Note {
     private LocalDate created;
     private String createdBy;
 
+    @ToString.Exclude
     @ManyToOne
     private Person person;
 

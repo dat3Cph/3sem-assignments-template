@@ -10,7 +10,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "Person.getTotalPaid", query = "select sum(f.amount) from Fee f where f.person.id = :value"),
         @NamedQuery(name= "Person.getAllNotesByPerson", query = "select n from Note n where n.person.id = :value"),
-        @NamedQuery(name = "Person.getNotesWithNamesAndAges", query = "select new NoteWithNameAndAgeDTO(n.note, p.name, p2.age) from Note n join Person p on p.id = n.person.id join PersonDetail p2 on p.id = p2.person.id")
+        @NamedQuery(name = "Person.getNotesWithNamesAndAges", query = "select new NoteWithNameAndAgeDTO(n, p.name, p2.age) from Note n join Person p on p.id = n.person.id join PersonDetail p2 on p.id = p2.person.id")
 })
 
 @Entity

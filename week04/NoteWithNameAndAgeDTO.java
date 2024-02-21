@@ -1,10 +1,10 @@
 public class NoteWithNameAndAgeDTO {
 
-    private String note;
+    private Note note;
     private String name;
     private int age;
 
-    public NoteWithNameAndAgeDTO(String note, String name, int age) {
+    public NoteWithNameAndAgeDTO(Note note, String name, int age) {
         this.note = note;
         this.name = name;
         this.age = age;
@@ -13,7 +13,7 @@ public class NoteWithNameAndAgeDTO {
     @Override
     public String toString() {
         return "NoteWithNameAndAgeDTO{" +
-                "note='" + note + '\'' +
+                "note=" + note +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';

@@ -45,7 +45,7 @@ public class WasteTruck {
     public void addDriver(Driver driver){
         this.drivers.add(driver);
         if(driver != null){
-            driver.setWasteTruck(this);
+            driver.addTruck(this);
         }
     }
 

@@ -33,8 +33,7 @@ public class Driver {
     @Column(name="surname")
     private String surname;
 
-    @Column(name="truck_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private WasteTruck wasteTruck;
 
     public Driver(String name, BigDecimal salary, String surname) {
@@ -45,7 +44,7 @@ public class Driver {
 
 
     @PrePersist
-    private void generateIdAndDayOfEmployment(){
+    private void generateIdAndDayOfEmployment() throws Exception{
         Random random = new Random();
         this.employmentDate = Date.valueOf(LocalDate.now());
 
@@ -53,9 +52,9 @@ public class Driver {
         String year = date[0].substring(2);
 
         StringBuilder result = new StringBuilder();
-        result.append(year)
-                .append(date[1])
+        result.append(date[1])
                 .append(date[2])
+                .append(year)
                 .append("-")
                 .append(this.name.charAt(0))
                 .append(this.surname.charAt(0))
@@ -65,8 +64,18 @@ public class Driver {
 
         if(validateDriverId(result.toString())){
             this.id = result.toString();
+        }else {
+            throw new Exception("Id not valid");
         }
 
+    }
+
+
+    public void addTruck(WasteTruck wasteTruck){
+        this.wasteTruck = wasteTruck;
+        if(wasteTruck != null){
+            wasteTruck.addDriver(this);
+        }
     }
 
 

@@ -1,19 +1,55 @@
 package Recycling.dao;
 
 import Recycling.model.Driver;
+import jakarta.persistence.EntityManagerFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public class DriverDAOImpl implements IDriverDAO{
+
+    private static EntityManagerFactory emf;
+    private static DriverDAOImpl instance;
+
+
+    public static DriverDAOImpl getInstance(EntityManagerFactory emf_){
+        if(instance == null){
+            emf = emf_;
+            instance = new DriverDAOImpl();
+        }
+        return instance;
+    }
+
+
     @Override
     public String saveDriver(String name, String surname, BigDecimal salary) {
-        return null;
+        Driver driver = null;
+        if(!name.isEmpty() & !surname.isEmpty()){
+            driver = new Driver(name,salary,surname);
+        }
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.persist(driver);
+            em.getTransaction().commit();
+            return driver.getId();
+        }
     }
 
     @Override
     public Driver getDriverById(String id) {
-        return null;
+        Driver found = null;
+        if(id != null){
+            try(var em = emf.createEntityManager()){
+                em.getTransaction().begin();
+                found = em.find(Driver.class, id);
+                em.getTransaction().commit();
+                if(found != null){
+                    return found;
+                }
+
+            }
+        }
+        return found;
     }
 
     @Override
