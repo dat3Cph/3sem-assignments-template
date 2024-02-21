@@ -32,7 +32,7 @@ public class WasteTruck {
     @Column(name="registration_number")
     private String registrationNumber;
 
-    @OneToMany(mappedBy = "wasteTruck")
+    @OneToMany(mappedBy = "wasteTruck", fetch = FetchType.EAGER)
     private Set<Driver> drivers = new HashSet<>();
 
 
@@ -44,9 +44,6 @@ public class WasteTruck {
 
     public void addDriver(Driver driver){
         this.drivers.add(driver);
-        if(driver != null){
-            driver.addTruck(this);
-        }
     }
 
 

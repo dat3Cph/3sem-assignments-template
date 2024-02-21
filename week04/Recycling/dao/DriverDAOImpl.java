@@ -2,6 +2,8 @@ package Recycling.dao;
 
 import Recycling.model.Driver;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -54,41 +56,95 @@ public class DriverDAOImpl implements IDriverDAO{
 
     @Override
     public Driver updateDriver(Driver driver) {
+        if(driver != null){
+            try(var em = emf.createEntityManager()){
+                em.getTransaction().begin();
+                Driver found = em.find(Driver.class,driver.getId());
+                if(found != null){
+                    Driver merged = em.merge(driver);
+                    em.getTransaction().commit();
+                    return merged;
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public void deleteDriver(String id) {
-
+        if(id != null || !id.isEmpty() || !id.isBlank()){
+            try(var em = emf.createEntityManager()){
+                em.getTransaction().begin();
+                Driver found = em.find(Driver.class,id);
+                if(found != null){
+                    em.remove(found);
+                    em.getTransaction().commit();
+                }
+            }
+        }
     }
 
     @Override
     public List<Driver> findAllDriversEmployedAtTheSameYear(String year) {
+        if(year != null | !year.isBlank() | !year.isEmpty()){
+            try(var em = emf.createEntityManager()){
+                em.getTransaction().begin();
+                TypedQuery<Driver> query = em.createNamedQuery("Driver.findAllDriversEmployedAtTheSameYear", Driver.class);
+                query.setParameter("value",year);
+                em.getTransaction().commit();
+                return query.getResultList();
+            }
+        }
         return null;
     }
 
     @Override
     public List<Driver> fetchAllDriversWithSalaryGreaterThan10000() {
-        return null;
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createQuery("select d from Driver d where d.salary > 10000",Driver.class);
+            em.getTransaction().commit();
+            return query.getResultList();
+        }
     }
 
     @Override
     public double fetchHighestSalary() {
-        return 0;
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("Driver.findHighestSalary");
+            em.getTransaction().commit();
+            return Double.parseDouble(query.getSingleResult().toString());
+        }
     }
 
     @Override
     public List<String> fetchFirstNameOfAllDrivers() {
-        return null;
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<String> query = em.createNamedQuery("Driver.findFirstNameOfDrivers",String.class);
+            em.getTransaction().commit();
+            return query.getResultList();
+        }
     }
 
     @Override
     public long calculateNumberOfDrivers() {
-        return 0;
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("Driver.driverCount");
+            em.getTransaction().commit();
+            return Long.parseLong(query.getSingleResult().toString());
+        }
     }
 
     @Override
     public Driver fetchDriverWithHighestSalary() {
-        return null;
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createNamedQuery("Driver.getDriverWithHighestSalary", Driver.class);
+            em.getTransaction().commit();
+            return query.getResultList().get(0);
+        }
     }
 }

@@ -9,7 +9,13 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Random;
-
+@NamedQueries({
+        @NamedQuery(name="Driver.findAllDriversEmployedAtTheSameYear", query = "select d from Driver d where substring(cast(d.employmentDate as string),1,4) = :value"),
+        @NamedQuery(name="Driver.findHighestSalary", query = "select max(d.salary) from Driver d"),
+        @NamedQuery(name="Driver.findFirstNameOfDrivers", query = "select d.name from Driver d"),
+        @NamedQuery(name="Driver.driverCount", query = "select count(d) from Driver d"),
+        @NamedQuery(name="Driver.getDriverWithHighestSalary", query = "select d from Driver d group by d order by max(d.salary) desc")
+})
 @Entity
 @Getter
 @Setter
@@ -73,11 +79,7 @@ public class Driver {
 
     public void addTruck(WasteTruck wasteTruck){
         this.wasteTruck = wasteTruck;
-        if(wasteTruck != null){
-            wasteTruck.addDriver(this);
-        }
     }
-
 
     public static Boolean validateDriverId(String driverId) {
         return driverId.matches("[0-9][0-9][0-9][0-9][0-9][0-9]-[A-Z][A-Z]-[0-9][0-9][0-9][A-Z]");
