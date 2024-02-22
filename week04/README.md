@@ -7,9 +7,9 @@
 ### Completed task:
 
 - Dolphin - Sorry for it not being in a separate package, but the code wouldn't compile when i did.
-- 
+- Recycling
 
 ## Friday presentation
-- JPQL
+- DTO Projection
 
 ----

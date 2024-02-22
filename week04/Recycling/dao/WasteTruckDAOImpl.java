@@ -108,7 +108,11 @@ public class WasteTruckDAOImpl implements IWasteTruckDAO{
                 Driver foundDR = em.find(Driver.class, id);
 
                 if(foundWT != null & foundDR != null){
-                    wasteTruck.getDrivers().remove(foundDR);
+                    for(Driver d : wasteTruck.getDrivers()){
+                        if(d.getId().equals(foundDR.getId())){
+                            wasteTruck.getDrivers().remove(d);
+                        }
+                    }
                     foundDR.addTruck(null);
                     em.merge(wasteTruck);
                     em.merge(foundDR);
