@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,30 +79,124 @@ class DriverDAOImplTest {
             drivers = query.getResultList();
         }
         assertEquals(driverIds.size(), drivers.size());
-        
+
+
+        Driver driver = driverDAO.getDriverById(driverIds.get(0));
+        driverDAO.deleteDriver(driver.getId());
+        driverIds.remove(driver.getId());
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createQuery("select d from Driver d", Driver.class);
+            em.getTransaction().commit();
+            drivers = query.getResultList();
+        }
+        assertEquals(driverIds.size(), drivers.size());
     }
 
     @Test
     void findAllDriversEmployedAtTheSameYear() {
+        List<Driver> drivers = driverDAO.findAllDriversEmployedAtTheSameYear("2024");
+        for(Driver d : drivers) {
+            assertEquals(2024,d.getEmploymentDate().toLocalDate().getYear());
+        }
     }
 
     @Test
     void fetchAllDriversWithSalaryGreaterThan10000() {
+        List<Driver> drivers = driverDAO.fetchAllDriversWithSalaryGreaterThan10000();
+        for(Driver d: drivers){
+            assertTrue(d.getSalary().intValueExact() > 10000);
+        }
     }
 
     @Test
     void fetchHighestSalary() {
+        List<Driver> drivers = new ArrayList<>();
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createQuery("select d from Driver d", Driver.class);
+            em.getTransaction().commit();
+            drivers = query.getResultList();
+        }
+
+        List<Driver> sortedList = drivers.stream().sorted(new Comparator<Driver>() {
+            @Override
+            public int compare(Driver o1, Driver o2) {
+                if(o1.getSalary().intValueExact() > o2.getSalary().intValueExact()){
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }
+        }).toList();
+
+        double salary = driverDAO.fetchHighestSalary();
+
+        assertEquals(salary,sortedList.get(sortedList.size()-1).getSalary().intValueExact());
+
     }
 
     @Test
     void fetchFirstNameOfAllDrivers() {
+        List<Driver> drivers = new ArrayList<>();
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createQuery("select d from Driver d", Driver.class);
+            em.getTransaction().commit();
+            drivers = query.getResultList();
+        }
+
+        List<String> driverNames = driverDAO.fetchFirstNameOfAllDrivers();
+
+        for(int i = 0; i < drivers.size(); i++){
+            assertEquals(drivers.get(i).getName(), driverNames.get(i));
+        }
+
+
     }
 
     @Test
     void calculateNumberOfDrivers() {
+        List<Driver> drivers = new ArrayList<>();
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createQuery("select d from Driver d", Driver.class);
+            em.getTransaction().commit();
+            drivers = query.getResultList();
+        }
+
+        long count = driverDAO.calculateNumberOfDrivers();
+        assertEquals(count, drivers.size());
+
     }
 
     @Test
     void fetchDriverWithHighestSalary() {
+        List<Driver> drivers = new ArrayList<>();
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<Driver> query = em.createQuery("select d from Driver d", Driver.class);
+            em.getTransaction().commit();
+            drivers = query.getResultList();
+        }
+
+        List<Driver> sortedList = drivers.stream().sorted(new Comparator<Driver>() {
+            @Override
+            public int compare(Driver o1, Driver o2) {
+                if(o1.getSalary().intValueExact() > o2.getSalary().intValueExact()){
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }
+        }).toList();
+
+        for (Driver d: sortedList){
+            System.out.println(d.getSalary());
+        }
+
+        assertEquals(sortedList.get(sortedList.size()-1).getId(), driverDAO.fetchDriverWithHighestSalary().getId());
+
+
     }
 }
