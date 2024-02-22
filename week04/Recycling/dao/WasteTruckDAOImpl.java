@@ -3,6 +3,7 @@ package Recycling.dao;
 import Recycling.model.Driver;
 import Recycling.model.WasteTruck;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
@@ -80,22 +81,51 @@ public class WasteTruckDAOImpl implements IWasteTruckDAO{
         if(wasteTruck != null & driver != null){
             try(var em = emf.createEntityManager()){
                 em.getTransaction().begin();
-                wasteTruck.addDriver(driver);
-                driver.addTruck(wasteTruck);
-                em.merge(wasteTruck);
-                em.merge(driver);
-                em.getTransaction().commit();
+
+                WasteTruck foundWT = em.find(WasteTruck.class, wasteTruck.getId());
+                Driver foundDR = em.find(Driver.class, driver.getId());
+
+                if(foundWT != null & foundDR != null){
+                    if(foundWT.isAvailable()){
+                        wasteTruck.addDriver(driver);
+                        driver.addTruck(wasteTruck);
+                        em.merge(wasteTruck);
+                        em.merge(driver);
+                        em.getTransaction().commit();
+                    }
+                }
             }
         }
     }
 
     @Override
     public void removeDriverFromWasteTruck(WasteTruck wasteTruck, String id) {
+        if(wasteTruck != null | !id.isEmpty() | !id.isBlank() | id != null){
+            try(var em = emf.createEntityManager()){
+                em.getTransaction().begin();
 
+                WasteTruck foundWT = em.find(WasteTruck.class,wasteTruck.getId());
+                Driver foundDR = em.find(Driver.class, id);
+
+                if(foundWT != null & foundDR != null){
+                    wasteTruck.getDrivers().remove(foundDR);
+                    foundDR.addTruck(null);
+                    em.merge(wasteTruck);
+                    em.merge(foundDR);
+                    em.getTransaction().commit();
+                }
+
+            }
+        }
     }
 
     @Override
     public List<WasteTruck> getAllAvailableTrucks() {
-        return null;
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            TypedQuery<WasteTruck> query = em.createQuery("select w from WasteTruck w where w.isAvailable = true", WasteTruck.class);
+            em.getTransaction().commit();
+            return query.getResultList();
+        }
     }
 }
