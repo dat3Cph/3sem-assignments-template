@@ -8,6 +8,8 @@
 
 - Dolphin - Sorry for it not being in a separate package, but the code wouldn't compile when i did.
 - Recycling
+- SchoolExercise
+- GLSExercisePart2
 
 ## Friday presentation
 - DTO Projection

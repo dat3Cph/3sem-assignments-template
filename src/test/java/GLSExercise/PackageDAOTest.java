@@ -1,11 +1,11 @@
 package GLSExercise;
 
+import GLSExercisePart2.Package;
+import GLSExercisePart2.PackageDAO;
 import ThePointExercise.HibernateConfig;
-import ThePointExercise.PointDAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ class PackageDAOTest {
 
     static EntityManagerFactory emf;
     static EntityManager em;
-    static PackageDAO packageDAO;
+    static GLSExercisePart2.PackageDAO packageDAO;
 
     @BeforeEach
     void beforeEach(){
@@ -31,8 +31,8 @@ class PackageDAOTest {
 
     @Test
     void create() {
-        Package pack = new Package("A32BGNs","Svend","Didver",DeliveryStatus.PENDING);
-        Package pack2 = new Package("GFSDFJn2","Patrick","Morgens",DeliveryStatus.PENDING);
+        GLSExercisePart2.Package pack = new GLSExercisePart2.Package("A32BGNs","Svend","Didver", GLSExercisePart2.DeliveryStatus.PENDING);
+        GLSExercisePart2.Package pack2 = new GLSExercisePart2.Package("GFSDFJn2","Patrick","Morgens", GLSExercisePart2.DeliveryStatus.PENDING);
         assertNotNull(packageDAO.create(pack));
         assertTrue(packageDAO.create(pack2));
     }
@@ -46,8 +46,8 @@ class PackageDAOTest {
 
     @Test
     void updateStatus() {
-        Package pack = new Package("A32BGNs","Svend","Didver",DeliveryStatus.PENDING);
-        assertTrue(packageDAO.updateStatus(pack.getId(),DeliveryStatus.DELIVERED));
+        GLSExercisePart2.Package pack = new Package("A32BGNs","Svend","Didver", GLSExercisePart2.DeliveryStatus.PENDING);
+        assertTrue(packageDAO.updateStatus(pack.getId(), GLSExercisePart2.DeliveryStatus.DELIVERED));
 
     }
 

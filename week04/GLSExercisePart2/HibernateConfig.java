@@ -1,6 +1,5 @@
-package GLSExercise;
+package GLSExercisePart2;
 
-import GLSExercisePart2.Package;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -56,6 +55,8 @@ public class HibernateConfig {
 
     private static void getAnnotationConfiguration(Configuration configuration) {
         configuration.addAnnotatedClass(Package.class);
+        configuration.addAnnotatedClass(Location.class);
+        configuration.addAnnotatedClass(Shipment.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {

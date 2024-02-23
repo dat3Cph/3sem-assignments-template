@@ -1,7 +1,6 @@
 package ThePointExercise;
 
-import GLSExercise.PackageDAO;
-import Part2.Student;
+import GLSExercisePart2.Package;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -56,7 +55,7 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        configuration.addAnnotatedClass(GLSExercise.Package.class);
+        configuration.addAnnotatedClass(Package.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {

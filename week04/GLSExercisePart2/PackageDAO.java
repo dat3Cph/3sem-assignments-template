@@ -1,19 +1,21 @@
-package GLSExercise;
+package GLSExercisePart2;
 
-import GLSExercisePart2.Package;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class PackageDAO {
 
     private static EntityManagerFactory emf;
-    private static GLSExercisePart2.PackageDAO instance;
+    private static PackageDAO instance;
 
-    public static GLSExercisePart2.PackageDAO getInstance(EntityManagerFactory emf_){
+    public static PackageDAO getInstance(EntityManagerFactory emf_){
         if(instance == null){
             emf = emf_;
-            instance = new GLSExercisePart2.PackageDAO();
+            instance = new PackageDAO();
         }
         return instance;
     }
@@ -32,11 +34,11 @@ public class PackageDAO {
         try(var em = emf.createEntityManager()){
             TypedQuery<GLSExercisePart2.Package> query = em.createNamedQuery("Package.getByTrackingNr", GLSExercisePart2.Package.class);
             query.setParameter("value",in);
-            return query.getSingleResult();
+            return query.getResultList().get(0);
         }
     }
 
-    public boolean updateStatus(int id, DeliveryStatus in){
+    public boolean updateStatus(int id, GLSExercisePart2.DeliveryStatus in){
         try(var em = emf.createEntityManager()){
             em.getTransaction().begin();
             Query query = em.createNamedQuery("Package.updateDeliveryStatus");
@@ -47,6 +49,25 @@ public class PackageDAO {
             return true;
         }
     }
+
+    public void shipPackage(Package p, Location location, Location destination){
+        Shipment shipment = new Shipment();
+        shipment.setAPackage(p);
+        shipment.setSource(location);
+        shipment.setDestination(location);
+        shipment.setShipmentDate(LocalDate.now());
+        try(var em = emf.createEntityManager()){
+            em.getTransaction().begin();
+
+            if(!em.contains(p)){
+                p = em.merge(p);
+            }
+            p.addShipment(shipment);
+            em.persist(shipment);
+            em.getTransaction().commit();
+        }
+    }
+
 
     public boolean deleteById(int id){
         try(var em = emf.createEntityManager()){

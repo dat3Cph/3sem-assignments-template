@@ -1,10 +1,12 @@
-package GLSExercise;
+package GLSExercisePart2;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @NamedQueries({
     @NamedQuery(name="Package.getByTrackingNr",query = "select p from Package p where p.trackingNumber = :value"),
@@ -23,19 +25,19 @@ public class Package {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name ="tracking_number")
+    @Column(name = "tracking_number")
     private String trackingNumber;
 
-    @Column(name ="sender")
+    @Column(name = "sender")
     private String sender;
 
-    @Column(name ="receiver")
+    @Column(name = "receiver")
     private String receiver;
 
-    @Column(name ="delivery_status")
+    @Column(name = "delivery_status")
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
@@ -44,6 +46,9 @@ public class Package {
 
     @Temporal(TemporalType.DATE)
     private LocalDate updatedAt;
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Shipment> shipments = new HashSet<>();
 
 
     public Package(String trackingNumber, String sender, String receiver, DeliveryStatus deliveryStatus) {
@@ -54,14 +59,20 @@ public class Package {
     }
 
     @PrePersist
-    private void setInitialDates(){
+    private void setInitialDates() {
         this.createdAt = LocalDate.now();
         this.updatedAt = LocalDate.now();
     }
 
     @PreUpdate
-    private void updateDates(){
+    private void updateDates() {
         this.updatedAt = LocalDate.now();
+    }
+
+    public void addShipment(Shipment shipment){
+        if(shipment != null){
+            shipments.add(shipment);
+        }
     }
 
 }

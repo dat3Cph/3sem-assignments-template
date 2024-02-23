@@ -8,4 +8,13 @@
       <sourceFolder url="file://$MODULE_DIR$/week04" isTestSource="false" />
     </content>
   </component>
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <datasource-mapping />
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+  </component>
 </module>
