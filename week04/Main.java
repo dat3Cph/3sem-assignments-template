@@ -36,6 +36,14 @@ public class Main {
         p2.addNote(note3);
         p2.addNote(note4);
 
+        Event e1 = new Event("DM-senior",LocalDate.of(2023,8,29));
+        Event e2 = new Event("SM-junior",LocalDate.of(2023,9,22));
+
+
+        p1.addEvent(p1,e1,LocalDate.now(),500);
+        p1.addEvent(p1,e2,LocalDate.now(),300);
+
+
 
         dolphinDAO.register(p1);
         dolphinDAO.register(p2);
@@ -57,6 +65,10 @@ public class Main {
 
         List<NoteWithNameAndAgeDTO> noteWithNameAndAges = dolphinDAO.getAllNotesWithNameAndAges();
         noteWithNameAndAges.forEach(System.out::println);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
