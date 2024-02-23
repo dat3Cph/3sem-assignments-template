@@ -50,23 +50,7 @@ public class PackageDAO {
         }
     }
 
-    public void shipPackage(Package p, Location location, Location destination){
-        Shipment shipment = new Shipment();
-        shipment.setAPackage(p);
-        shipment.setSource(location);
-        shipment.setDestination(location);
-        shipment.setShipmentDate(LocalDate.now());
-        try(var em = emf.createEntityManager()){
-            em.getTransaction().begin();
 
-            if(!em.contains(p)){
-                p = em.merge(p);
-            }
-            p.addShipment(shipment);
-            em.persist(shipment);
-            em.getTransaction().commit();
-        }
-    }
 
 
     public boolean deleteById(int id){
