@@ -1,6 +1,6 @@
-package JavalinExercise2.controllers;
+package JavalinExercise.controllers;
 
-import JavalinExercise2.dtos.DogDTO;
+import JavalinExercise.dtos.DogDTO;
 import io.javalin.http.Context;
 
 import java.util.LinkedHashMap;

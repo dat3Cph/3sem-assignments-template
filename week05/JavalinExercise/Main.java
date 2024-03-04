@@ -1,11 +1,7 @@
-package JavalinExercise2;
+package JavalinExercise;
 
-import JavalinExercise2.controllers.DogController;
-import JavalinExercise2.dtos.DogDTO;
+import JavalinExercise.controllers.DogController;
 import io.javalin.Javalin;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 

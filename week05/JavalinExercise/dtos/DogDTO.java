@@ -1,4 +1,4 @@
-package JavalinExercise2.dtos;
+package JavalinExercise.dtos;
 
 
 import lombok.*;
