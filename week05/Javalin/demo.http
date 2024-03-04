@@ -1,0 +1,24 @@
+GET http://localhost:7007/persons
+###
+POST http://localhost:7007/persons
+
+{
+"name":"Lars",
+"age":35
+}
+
+###
+
+GET http://localhost:7007/persons/Paul
+###
+
+GET http://localhost:7007/joke
+
+###
+
+GET http://localhost:7007/todaysDate
+
+###
+
+GET http://localhost:7007/persons
+###
