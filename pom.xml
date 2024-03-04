@@ -21,7 +21,7 @@
 
     <dependencies>
 
-        <!-- Javalin -->
+        <!-- JavalinTest -->
         <dependency>
             <groupId>io.javalin</groupId>
             <artifactId>javalin</artifactId>

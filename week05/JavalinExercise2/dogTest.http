@@ -1,0 +1,33 @@
+GET http://localhost:7007/api/dogs
+
+###
+
+GET http://localhost:7007/api/dogs/dog/1
+
+###
+
+POST http://localhost:7007/api/dogs/dog
+
+{
+"name":"Peter",
+"breed":"CoolDog",
+"gender":"Male",
+"age":3
+}
+
+###
+
+PUT http://localhost:7007/api/dogs/dog/3
+
+{
+"name":"Mogens",
+"race":"LabCreated",
+"gender":"Unknown",
+"age":0
+}
+
+###
+
+DELETE http://localhost:7007/api/dogs/dog/1
+
+###

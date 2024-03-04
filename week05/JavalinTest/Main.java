@@ -1,19 +1,14 @@
-package Javalin;
+package JavalinTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.javalin.Javalin;
-import io.javalin.apibuilder.EndpointGroup;
-import io.javalin.http.Context;
-import io.javalin.http.Handler;
 import lombok.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
