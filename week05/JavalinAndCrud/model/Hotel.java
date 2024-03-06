@@ -1,0 +1,46 @@
+package JavalinAndCrud.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+import java.util.Map;
+import JavalinAndCrud.dtos.HotelDTO;
+
+@Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@NamedQueries({
+        @NamedQuery(name = "Hotel.getAll", query = "select new JavalinAndCrud.dtos.HotelDTO(h.id, h.name, h.address) from Hotel h")
+})
+
+public class Hotel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String address;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Room> rooms;
+
+    public Hotel(String name, String address, List<Room> rooms) {
+        this.name = name;
+        this.address = address;
+        this.rooms = rooms;
+    }
+
+    public void addRoom(Room room){
+        if(room != null){
+            if(!rooms.contains(room)){
+                rooms.add(room);
+                room.setHotel(this);
+            }
+        }
+    }
+
+}
