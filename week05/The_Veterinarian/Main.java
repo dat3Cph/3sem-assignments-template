@@ -1,5 +1,7 @@
 package The_Veterinarian;
 
+import The_Veterinarian.controllers.AppointmentController;
+import The_Veterinarian.controllers.PatientController;
 import The_Veterinarian.dtos.AppointmentDTO;
 import The_Veterinarian.dtos.PatientDTO;
 import io.javalin.Javalin;
@@ -18,6 +20,16 @@ public class Main {
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7007);
+        app.before(ctx -> {
+            app.attribute("testAttribute", "Hello :)");
+            System.out.println(ctx.req());
+        });
+
+        app.after(ctx -> {
+            System.out.println(app.attribute("testAttribute").toString());
+            System.out.println(ctx.res());
+        });
+
 
 
         //id name allergies medications
@@ -57,14 +69,8 @@ public class Main {
         return () -> {
             path("/api/vet", () -> {
                 path("/appointments", () -> {
-                    get("/", ctx -> ctx.json(appointments));
-                    get("/appointment/{id}", ctx -> {
-                        int id = Integer.parseInt(ctx.pathParam("id"));
-                        if (!appointments.containsKey(id)) {
-                            ctx.status(404);
-                        }
-                        ctx.json(appointments.get(id));
-                    });
+                    get("/", AppointmentController.getAllAppointments());
+                    get("/appointment/{id}", AppointmentController.getAppointmentById());
                 });
             });
         };
@@ -74,14 +80,8 @@ public class Main {
         return () -> {
             path("/api/vet", () -> {
                 path("/patients", () -> {
-                    get("/", ctx -> ctx.json(patients));
-                    get("/patient/{id}", ctx -> {
-                        int id = Integer.parseInt(ctx.pathParam("id"));
-                        if (!patients.containsKey(id)) {
-                            ctx.status(404);
-                        }
-                        ctx.json(patients.get(id));
-                    });
+                    get("/", PatientController.getAllPatients());
+                    get("/patient/{id}", PatientController.getPatientById());
                 });
             });
         };
