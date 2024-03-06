@@ -2,8 +2,6 @@ package The_Veterinarian;
 
 import The_Veterinarian.dtos.AppointmentDTO;
 import The_Veterinarian.dtos.PatientDTO;
-import The_Veterinarian.handlers.AppointmentHandler;
-import The_Veterinarian.handlers.PatientHandler;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;
 
@@ -17,6 +15,7 @@ public class Main {
 
     public static Map<Integer, AppointmentDTO> appointments = new LinkedHashMap<>();
     public static Map<Integer, PatientDTO> patients = new HashMap<>();
+
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7007);
 
@@ -26,7 +25,7 @@ public class Main {
         //create patients:
         PatientDTO patient1 = new PatientDTO(1, "Gunther", new String[]{"Pollen", "Mold spores"}, new String[]{"Amoxicillin"});
         PatientDTO patient2 = new PatientDTO(2, "Genevieve", new String[]{"Dust mites"}, new String[]{"None"});
-        PatientDTO patient3= new PatientDTO(3, "Lord", new String[]{"Shed skin cells", "Flea saliva"}, new String[]{"Carprofen"});
+        PatientDTO patient3 = new PatientDTO(3, "Lord", new String[]{"Shed skin cells", "Flea saliva"}, new String[]{"Carprofen"});
         PatientDTO patient4 = new PatientDTO(4, "Morten", new String[]{"None"}, new String[]{"None"});
 
         //id veterinarianName patientDTO date description
@@ -48,35 +47,44 @@ public class Main {
         appointments.put(4, appointment4);
 
 
-        app.routes(() -> {
+        app.routes(appointmentRessource());
+        app.routes(patientRessource());
+
+
+    }
+
+    private static EndpointGroup appointmentRessource() {
+        return () -> {
             path("/api/vet", () -> {
-               path("/appointments", () -> {
+                path("/appointments", () -> {
                     get("/", ctx -> ctx.json(appointments));
                     get("/appointment/{id}", ctx -> {
                         int id = Integer.parseInt(ctx.pathParam("id"));
-                        if(!appointments.containsKey(id)){
+                        if (!appointments.containsKey(id)) {
                             ctx.status(404);
                         }
                         ctx.json(appointments.get(id));
                     });
-               });
+                });
+            });
+        };
+    }
 
-               path("/patients", () -> {
+    private static EndpointGroup patientRessource(){
+        return () -> {
+            path("/api/vet", () -> {
+                path("/patients", () -> {
                     get("/", ctx -> ctx.json(patients));
                     get("/patient/{id}", ctx -> {
-                       int id = Integer.parseInt(ctx.pathParam("id"));
-                       if(!patients.containsKey(id)){
-                           ctx.status(404);
-                       }
-                       ctx.json(patients.get(id));
+                        int id = Integer.parseInt(ctx.pathParam("id"));
+                        if (!patients.containsKey(id)) {
+                            ctx.status(404);
+                        }
+                        ctx.json(patients.get(id));
                     });
-               });
+                });
             });
-                }
-        );
-        
-
-
+        };
     }
 
 }
