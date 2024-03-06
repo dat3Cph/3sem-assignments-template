@@ -47,23 +47,7 @@ public class Main {
         appointments.put(3, appointment3);
         appointments.put(4, appointment4);
 
-        app.routes(() -> {
-                    path("/api/vet", () -> {
-                        path("/appointments", () -> {
-                            get("/", new AppointmentHandler());
-                            get("/appointment/{id}", new AppointmentHandler());
-                        });
 
-                        path("/patients", () -> {
-                            get("/", new PatientHandler());
-                            get("/patient/{id}", new PatientHandler());
-                        });
-                    });
-                }
-        );
-
-
-        /*
         app.routes(() -> {
             path("/api/vet", () -> {
                path("/appointments", () -> {
@@ -90,7 +74,7 @@ public class Main {
             });
                 }
         );
-        */
+        
 
 
     }
