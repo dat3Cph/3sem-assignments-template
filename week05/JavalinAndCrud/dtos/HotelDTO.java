@@ -31,5 +31,5 @@ public class HotelDTO {
         this.name = name;
         this.address = address;
     }
-    
+
 }

@@ -18,6 +18,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @MapsId("rooms")
     @ManyToOne(cascade = CascadeType.ALL)
     private Hotel hotel;
 
