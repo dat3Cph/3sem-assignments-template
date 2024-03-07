@@ -17,9 +17,9 @@ public class HotelDTO {
     private int id;
     private String name;
     private String address;
-    private List<Room> rooms;
+    private List<RoomDTO> rooms;
 
-    public HotelDTO(int id, String name, String address, List<Room> rooms){
+    public HotelDTO(int id, String name, String address, List<RoomDTO> rooms){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -31,4 +31,5 @@ public class HotelDTO {
         this.name = name;
         this.address = address;
     }
+    
 }

@@ -20,9 +20,8 @@ public class Main {
         ApplicationConfig app = ApplicationConfig.getInstance();
         app.initiateServer().startServer(7007).setExceptionHandling().setRoutes(Routes.getRoutes());
 
-        EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
 
-        HotelController hotelController = new HotelController(emf);
+        HotelController hotelController = new HotelController();
         Hotel hotel1 = new Hotel("Hotel Trivago", "CoolStreet 45", new ArrayList<>());
         Room room1 = new Room(null, 4, 6000);
         hotel1.addRoom(room1);

@@ -6,13 +6,13 @@ public interface IDAO<T, K> {
 
     List<T> getAll();
 
-    T getById(int id);
+    T getById(K id);
 
-    void create(K ent);
+    void create(T in);
 
-    K update(T in);
+    T update(T in, K id);
 
-    K delete(int id);
+    T delete(K id);
 
 
 }
