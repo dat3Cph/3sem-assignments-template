@@ -25,13 +25,18 @@ public class Hotel {
     private String name;
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Room> rooms;
 
     public Hotel(String name, String address, List<Room> rooms) {
         this.name = name;
         this.address = address;
         this.rooms = rooms;
+    }
+
+    public Hotel(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 
     public void addRoom(Room room){

@@ -1,10 +1,16 @@
 # Assignment Readme Guidelines
+## Nicklas Waldemar Seier Winter - Cph-nw89
 
 ## Overview
 
-- Your name
-- which assignment are included
-- which one are completed and which one are not
+
+### Completed task:
+
+- JavalinExercise
+- The_Veterinarian
+- JavalinAndCrud
 
 ## Friday presentation
-- add the friday presentation into the weekly folder
+- REST APIs
+
+----

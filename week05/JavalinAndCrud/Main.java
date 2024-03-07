@@ -4,6 +4,7 @@ import JavalinAndCrud.config.ApplicationConfig;
 import JavalinAndCrud.config.HibernateConfig;
 import JavalinAndCrud.config.Routes;
 import JavalinAndCrud.controllers.HotelController;
+import JavalinAndCrud.controllers.RoomController;
 import JavalinAndCrud.model.Hotel;
 import JavalinAndCrud.model.Room;
 import io.javalin.apibuilder.EndpointGroup;
@@ -22,9 +23,14 @@ public class Main {
 
 
         HotelController hotelController = new HotelController();
+        RoomController roomController = new RoomController();
         Hotel hotel1 = new Hotel("Hotel Trivago", "CoolStreet 45", new ArrayList<>());
         Room room1 = new Room(null, 4, 6000);
+        Room room2 = new Room(null, 7, 6500);
+        Room room3 = new Room(null, 11, 7000);
         hotel1.addRoom(room1);
+        hotel1.addRoom(room2);
+        hotel1.addRoom(room3);
         hotelController.createHotel(hotel1);
 
 

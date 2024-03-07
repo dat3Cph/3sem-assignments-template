@@ -41,10 +41,20 @@ public class ApplicationConfig {
     };
 
     public ApplicationConfig setExceptionHandling(){
+        app.exception(IllegalStateException.class, (e, ctx) -> {
+            ObjectNode json = jsonMapper.createObjectNode();
+            json.put("errorMessage", e.getMessage());
+            ctx.status(500).json(json);
+        });
         app.exception(Exception.class, (e, ctx) -> {
             ObjectNode json = jsonMapper.createObjectNode();
             json.put("errorMessage",e.getMessage());
             ctx.status(500).json(json);
+        });
+        app.error(404, ctx -> {
+            ObjectNode json = jsonMapper.createObjectNode();
+            json.put("errorMessage", "Not found");
+            ctx.status(404).json(json);
         });
         return appConfig;
     }
