@@ -50,8 +50,11 @@ public class RoomController {
             Room room = new Room();
             room.setNumber(roomDTO.getNumber());
             room.setPrice(roomDTO.getPrice());
-            room.setHotel(new Hotel());
+            HotelDAO hotelDAO = HotelDAO.getInstance();
+            Hotel hotel = hotelDAO.getById(roomDTO.getHotelId());;
+            room.setHotel(hotel);
             roomDAO.create(room);
+            roomDTO.setId(room.getId());
             ctx.json(roomDTO);
         };
     }
@@ -59,8 +62,11 @@ public class RoomController {
     public static Handler updateRoom(){
         return ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
-            Room room = ctx.bodyAsClass(Room.class);
-            room.setId(id);
+            RoomDTO roomDTO = ctx.bodyAsClass(RoomDTO.class);
+            roomDTO.setId(id);
+            HotelDAO hotelDAO = HotelDAO.getInstance();
+            Hotel hotel = hotelDAO.getById(roomDTO.getHotelId());
+            Room room = new Room(roomDTO.getId(),hotel, roomDTO.getNumber(), roomDTO.getPrice());
             Room merged = roomDAO.update(room, id);
             RoomDTO toReturn = new RoomDTO(merged.getId(), merged.getHotel().getId(), merged.getNumber(), merged.getPrice());
             ctx.json(toReturn);
@@ -71,7 +77,7 @@ public class RoomController {
         return ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
             Room room = roomDAO.getById(id);
-            roomDAO.delete(id);
+            roomDAO.delete(room.getId());
             RoomDTO toReturn = new RoomDTO(room.getId(), room.getHotel().getId(), room.getNumber(), room.getPrice());
             ctx.json(toReturn);
         };

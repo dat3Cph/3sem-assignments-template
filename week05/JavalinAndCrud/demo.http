@@ -27,14 +27,14 @@ POST http://localhost:7007/api/room
 }
 ###
 
-PUT http://localhost:7007/api/room/15
+PUT http://localhost:7007/api/room/5
 
 {
-"hotelId":15,
+"hotelId":3,
 "number":1234,
 "price":333
 }
 ###
 
-DELETE http://localhost:7007/api/room/42
+DELETE http://localhost:7007/api/room/8
 ###

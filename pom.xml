@@ -17,6 +17,9 @@
         <restassured.version>5.3.2</restassured.version>
         <testcontainers.version>1.19.5</testcontainers.version>
         <junit.version>5.9.1</junit.version>
+
+        <hamcrest.version>2.0.0.0</hamcrest.version>
+        <restassured.version>5.3.0</restassured.version>
     </properties>
 
     <dependencies>
@@ -126,6 +129,30 @@
             <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
+
+
+
+    <!--        https://www.baeldung.com/hamcrest-core-matchers-->
+    <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>java-hamcrest</artifactId>
+        <version>${hamcrest.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <!--        https://www.baeldung.com/rest-assured-tutorial-->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>${restassured.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-schema-validator</artifactId>
+        <version>${restassured.version}</version>
+        <scope>test</scope>
+    </dependency>
+
     </dependencies>
 
     <build>

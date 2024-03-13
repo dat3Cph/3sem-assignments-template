@@ -19,7 +19,8 @@ public class Room {
     private int id;
 
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinColumn(name="hotel_id", referencedColumnName = "id")
     private Hotel hotel;
 
     private int number;
