@@ -36,5 +36,5 @@ PUT http://localhost:7007/api/room/5
 }
 ###
 
-DELETE http://localhost:7007/api/room/8
+DELETE http://localhost:7007/api/room/3
 ###

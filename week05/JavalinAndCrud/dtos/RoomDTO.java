@@ -23,5 +23,9 @@ public class RoomDTO {
         this.price = price;
     }
 
-
+    public RoomDTO(int hotelId, int number, double price) {
+        this.hotelId = hotelId;
+        this.number = number;
+        this.price = price;
+    }
 }

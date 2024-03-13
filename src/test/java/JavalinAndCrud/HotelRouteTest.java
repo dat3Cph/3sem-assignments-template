@@ -7,6 +7,7 @@ import JavalinAndCrud.controllers.RoomController;
 import JavalinAndCrud.daos.HotelDAO;
 import JavalinAndCrud.daos.RoomDAO;
 import JavalinAndCrud.dtos.HotelDTO;
+import JavalinAndCrud.dtos.RoomDTO;
 import JavalinAndCrud.model.Hotel;
 import JavalinAndCrud.model.Room;
 import io.restassured.RestAssured;
@@ -36,7 +37,11 @@ public class HotelRouteTest {
         RoomDAO roomDAO = RoomDAO.getInstance(true);
         Hotel hotel = new Hotel("TestHotel", "megasejvej 6", new ArrayList<>());
         Room room = new Room(null, 32, 9000);
+        Room room2 = new Room(null, 22, 9200);
+        Room room3 = new Room(null, 72, 9050);
         hotel.addRoom(room);
+        hotel.addRoom(room2);
+        hotel.addRoom(room3);
         hotelDAO.create(hotel);
 
 
@@ -53,6 +58,20 @@ public class HotelRouteTest {
     void testServer(){
         RestAssured.given().when().get("hotel").then().statusCode(200).log().all();
     }
+
+    @Test
+    @DisplayName("Test get of hotel")
+    void testGetHotel(){
+        RestAssured.given()
+                .when()
+                .get("hotel/1")
+                .then()
+                .statusCode(200)
+                .assertThat().body("name", equalTo("TestHotel")).body("id", equalTo(1))
+                .log()
+                .all();
+    }
+
 
     @Test
     @DisplayName("Test creation of hotel")
@@ -72,4 +91,119 @@ public class HotelRouteTest {
                 .log()
                 .all();
     }
+
+    @Test
+    @DisplayName("Test update of hotel")
+    void testPutHotel(){
+        RestAssured.given()
+                .log()
+                .all()
+                .contentType("application/json")
+                .with()
+                .body(new Hotel("New name", "New Address!"))
+                .when()
+                .put("/hotel/1")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                .body("name", equalTo("New name"))
+                .log()
+                .all();
+    }
+
+    @Test
+    @DisplayName("Test deletion of hotel")
+    void testDeleteHotel(){
+        RestAssured.given()
+                .log()
+                .all()
+                .when()
+                .delete("/hotel/1")
+                .then()
+                .statusCode(200)
+                .assertThat().body("name", equalTo("TestHotel"))
+                .log()
+                .all();
+    }
+
+    @Test
+    @DisplayName("Test get rooms on hotel by id")
+    void testGetRoomsByHotelId(){
+        RestAssured.given()
+                .log()
+                .all()
+                .when()
+                .get("/hotel/1/rooms")
+                .then()
+                .statusCode(200)
+                .log()
+                .all();
+    }
+
+    @Test
+    @DisplayName("Test get all rooms")
+    void testGetAllRooms(){
+        RestAssured.given()
+                .when()
+                .get("room")
+                .then()
+                .statusCode(200)
+                .log()
+                .all();
+    }
+
+    @Test
+    @DisplayName("Test post of new room")
+    void testPostRoom(){
+        RestAssured.given()
+                .log()
+                .all()
+                .contentType("application/json")
+                .with()
+                .body(new RoomDTO(1,44,92050))
+                .when()
+                .post("room")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                .body("id", equalTo(4))
+                .log()
+                .all();
+    }
+
+    @Test
+    @DisplayName("Test put of room")
+    void testPutRoom(){
+        RestAssured.given()
+                .log()
+                .all()
+                .contentType("application/json")
+                .with()
+                .body(new RoomDTO(1, 0, 0))
+                .when()
+                .put("room/1")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                .body("id", equalTo(1)).body("number", equalTo(0))
+                .log()
+                .all();
+    }
+
+    @Test
+    @DisplayName("Test deletion of room")
+    void testDeleteRoom(){
+        RestAssured.given()
+                .log()
+                .all()
+                .when()
+                .delete("room/1")
+                .then()
+                .statusCode(200)
+                .assertThat().body("id", equalTo(1))
+                .log()
+                .all();
+    }
+    
+
 }
