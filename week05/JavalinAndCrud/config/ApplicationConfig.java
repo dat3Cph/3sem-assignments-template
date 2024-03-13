@@ -59,7 +59,10 @@ public class ApplicationConfig {
         return appConfig;
     }
 
-
+    public ApplicationConfig closeServer(){
+        app.close();
+        return appConfig;
+    }
 
 
 }

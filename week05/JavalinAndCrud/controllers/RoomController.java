@@ -2,7 +2,6 @@ package JavalinAndCrud.controllers;
 
 import JavalinAndCrud.daos.HotelDAO;
 import JavalinAndCrud.daos.RoomDAO;
-import JavalinAndCrud.dtos.HotelDTO;
 import JavalinAndCrud.dtos.RoomDTO;
 import JavalinAndCrud.model.Hotel;
 import JavalinAndCrud.model.Room;
@@ -16,8 +15,8 @@ public class RoomController {
     private static RoomDAO roomDAO;
     private static ObjectMapper jsonMapper = new ObjectMapper();
 
-    public RoomController(){
-        roomDAO = RoomDAO.getInstance();
+    public RoomController(boolean isTesting){
+        roomDAO = RoomDAO.getInstance(isTesting);
     }
 
     public static Handler getRoomsByHotelId(){
@@ -50,7 +49,7 @@ public class RoomController {
             Room room = new Room();
             room.setNumber(roomDTO.getNumber());
             room.setPrice(roomDTO.getPrice());
-            HotelDAO hotelDAO = HotelDAO.getInstance();
+            HotelDAO hotelDAO = HotelDAO.getInstance(false);
             Hotel hotel = hotelDAO.getById(roomDTO.getHotelId());;
             room.setHotel(hotel);
             roomDAO.create(room);
@@ -64,7 +63,7 @@ public class RoomController {
             int id = Integer.parseInt(ctx.pathParam("id"));
             RoomDTO roomDTO = ctx.bodyAsClass(RoomDTO.class);
             roomDTO.setId(id);
-            HotelDAO hotelDAO = HotelDAO.getInstance();
+            HotelDAO hotelDAO = HotelDAO.getInstance(false);
             Hotel hotel = hotelDAO.getById(roomDTO.getHotelId());
             Room room = new Room(roomDTO.getId(),hotel, roomDTO.getNumber(), roomDTO.getPrice());
             Room merged = roomDAO.update(room, id);

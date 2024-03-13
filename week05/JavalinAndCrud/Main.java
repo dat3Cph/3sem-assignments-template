@@ -21,9 +21,9 @@ public class Main {
         ApplicationConfig app = ApplicationConfig.getInstance();
         app.initiateServer().startServer(7007).setExceptionHandling().setRoutes(Routes.getRoutes());
 
-
-        HotelController hotelController = new HotelController();
-        RoomController roomController = new RoomController();
+        boolean isTesting = false;
+        HotelController hotelController = new HotelController(isTesting);
+        RoomController roomController = new RoomController(isTesting);
         Hotel hotel1 = new Hotel("Hotel Trivago", "CoolStreet 45", new ArrayList<>());
         Room room1 = new Room(null, 4, 6000);
         Room room2 = new Room(null, 7, 6500);

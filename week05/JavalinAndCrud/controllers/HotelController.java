@@ -1,19 +1,12 @@
 package JavalinAndCrud.controllers;
 
-import JavalinAndCrud.config.HibernateConfig;
 import JavalinAndCrud.daos.HotelDAO;
 import JavalinAndCrud.dtos.HotelDTO;
-import JavalinAndCrud.dtos.RoomDTO;
 import JavalinAndCrud.model.Hotel;
-import JavalinAndCrud.model.Room;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.http.Handler;
-import jakarta.persistence.EntityManagerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class HotelController {
 
@@ -21,8 +14,8 @@ public class HotelController {
     private static ObjectMapper jsonMapper = new ObjectMapper();
     //private static EntityManagerFactory emf;
 
-    public HotelController(){
-        hotelDAO = HotelDAO.getInstance();
+    public HotelController(boolean isTesting){
+        hotelDAO = HotelDAO.getInstance(isTesting);
     }
 
     public void createHotel(Hotel hotel){

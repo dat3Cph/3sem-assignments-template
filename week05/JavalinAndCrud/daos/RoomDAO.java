@@ -9,15 +9,15 @@ public class RoomDAO extends DAO<Room, Integer>{
 
     private static RoomDAO instance;
 
-    public static RoomDAO getInstance(){
+    public static RoomDAO getInstance(boolean isTesting){
         if(instance == null){
-            instance = new RoomDAO();
+            instance = new RoomDAO(isTesting);
         }
         return instance;
     }
 
-    private RoomDAO(){
-        super(Room.class);
+    private RoomDAO(boolean isTesting){
+        super(Room.class, isTesting);
     }
 
     public List<Room> getRoomsByHotelId(Integer id){

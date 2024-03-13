@@ -10,9 +10,14 @@ import java.util.List;
 public abstract class DAO<T, K> implements IDAO<T, K> {
 
     Class<T> entityClass;
-    public static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
+    public static EntityManagerFactory emf;
 
-    public DAO(Class<T> tClass){
+    public DAO(Class<T> tClass, boolean isTesting){
+        if(isTesting){
+            emf = HibernateConfig.getEntityManagerFactoryConfigForTesting();
+        }else {
+            emf = HibernateConfig.getEntityManagerFactoryConfig();
+        }
         entityClass = tClass;
     }
 
