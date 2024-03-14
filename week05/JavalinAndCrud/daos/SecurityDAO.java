@@ -6,6 +6,15 @@ import io.javalin.validation.ValidationException;
 
 public class SecurityDAO implements ISecurityDAO {
 
+    private static SecurityDAO instance;
+
+    public static SecurityDAO getInstance(){
+        if(instance == null){
+            instance = new SecurityDAO();
+        }
+        return instance;
+    }
+
 
     @Override
     public User getVerifiedUser(String username, String password) throws ValidationException {

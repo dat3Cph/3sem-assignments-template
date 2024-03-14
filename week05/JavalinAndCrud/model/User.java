@@ -2,10 +2,7 @@ package JavalinAndCrud.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashSet;
@@ -15,6 +12,8 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Getter
+@Setter
 public class User implements ISecurityUser{
 
     @Id
