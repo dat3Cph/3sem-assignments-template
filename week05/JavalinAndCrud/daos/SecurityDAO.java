@@ -1,2 +1,10 @@
-package JavalinAndCrud.daos;public class SecurityDAO {
+package JavalinAndCrud.daos;
+
+import JavalinAndCrud.model.User;
+
+public class SecurityDAO  {
+
+
+
+
 }
