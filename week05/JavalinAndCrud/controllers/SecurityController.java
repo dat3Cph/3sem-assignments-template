@@ -3,7 +3,7 @@ package JavalinAndCrud.controllers;
 public class SecurityController {
 
 
-    public static void login(){
+    public Handler void login(){
 
     }
 

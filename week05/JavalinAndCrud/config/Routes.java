@@ -4,6 +4,7 @@ import JavalinAndCrud.controllers.HotelController;
 import JavalinAndCrud.controllers.RoomController;
 import JavalinAndCrud.controllers.SecurityController;
 import io.javalin.apibuilder.EndpointGroup;
+import io.javalin.security.RouteRole;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -37,4 +38,11 @@ public class Routes {
             });
         };
     }
+
+    public enum Role implements RouteRole {
+        ANYONE,
+        USER,
+        ADMIN
+    }
+
 }
