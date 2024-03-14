@@ -204,6 +204,6 @@ public class HotelRouteTest {
                 .log()
                 .all();
     }
-    
+
 
 }

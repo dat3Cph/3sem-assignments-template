@@ -2,6 +2,7 @@ package JavalinAndCrud.config;
 
 import JavalinAndCrud.controllers.HotelController;
 import JavalinAndCrud.controllers.RoomController;
+import JavalinAndCrud.controllers.SecurityController;
 import io.javalin.apibuilder.EndpointGroup;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -28,4 +29,12 @@ public class Routes {
         };
     }
 
+    public static EndpointGroup getSecurityRoutes() {
+        return ()->{
+            path("/auth", ()->{
+                post("/login", SecurityController.login(),Role.ANYONE);
+                post("/register", SecurityController.register(),Role.ANYONE);
+            });
+        };
+    }
 }
