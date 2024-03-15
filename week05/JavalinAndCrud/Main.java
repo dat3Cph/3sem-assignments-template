@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
 
         ApplicationConfig app = ApplicationConfig.getInstance();
-        app.initiateServer().startServer(7007).setExceptionHandling().setRoutes(Routes.getRoutes()).setRoutes(Routes.getSecurityRoutes());
+        app.initiateServer().startServer(7007).setExceptionHandling().setRoutes(Routes.getRoutes()).setRoutes(Routes.getSecurityRoutes()).setRoutes(Routes.getSecuredRoutes()).checkSecurityRoles();
 
         boolean isTesting = false;
         HotelController hotelController = new HotelController(isTesting);

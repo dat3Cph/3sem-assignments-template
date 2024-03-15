@@ -1,8 +1,8 @@
 package JavalinAndCrud.daos;
 
+import JavalinAndCrud.exceptions.ValidationException;
 import JavalinAndCrud.model.Role;
 import JavalinAndCrud.model.User;
-import io.javalin.validation.ValidationException;
 
 public interface ISecurityDAO {
 

@@ -1,10 +1,15 @@
 # Assignment Readme Guidelines
+## Nicklas Waldemar Seier Winter - Cph-nw89
 
 ## Overview
 
-- Your name
-- which assignment are included
-- which one are completed and which one are not
+
+### Completed task:
+
+- Hotel Ex Part 1 - See Week05
+- Security Exercise - See Week06
 
 ## Friday presentation
-- add the friday presentation into the weekly folder
+- (?)
+
+----

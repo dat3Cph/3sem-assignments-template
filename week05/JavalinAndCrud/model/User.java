@@ -24,7 +24,7 @@ public class User implements ISecurityUser{
             @JoinColumn(name = "user_name",referencedColumnName = "username")},
             inverseJoinColumns = {
             @JoinColumn(name = "role_name",referencedColumnName = "name")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private Set<Role> roles = new HashSet<>();
 
     public User(String username, String password){

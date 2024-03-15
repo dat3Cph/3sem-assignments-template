@@ -38,3 +38,19 @@ PUT http://localhost:7007/api/room/5
 
 DELETE http://localhost:7007/api/room/3
 ###
+
+POST http://localhost:7007/api/auth/register
+
+{
+"username":"Gutestfemogtyve",
+"password":"Testpassword"
+}
+###
+
+POST http://localhost:7007/api/auth/login
+
+{
+"username":"Gutestfemogtyve",
+"password":"Testpassword"
+}
+###

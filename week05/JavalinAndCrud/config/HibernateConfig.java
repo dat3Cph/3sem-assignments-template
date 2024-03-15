@@ -1,7 +1,9 @@
 package JavalinAndCrud.config;
 
 import JavalinAndCrud.model.Hotel;
+import JavalinAndCrud.model.Role;
 import JavalinAndCrud.model.Room;
+import JavalinAndCrud.model.User;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -58,6 +60,9 @@ public class HibernateConfig {
     private static void getAnnotationConfiguration(Configuration configuration) {
         configuration.addAnnotatedClass(Hotel.class);
         configuration.addAnnotatedClass(Room.class);
+        configuration.addAnnotatedClass(Role.class);
+        configuration.addAnnotatedClass(User.class);
+
 
     }
 

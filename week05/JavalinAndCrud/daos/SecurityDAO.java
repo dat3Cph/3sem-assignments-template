@@ -1,16 +1,24 @@
 package JavalinAndCrud.daos;
 
+import JavalinAndCrud.exceptions.ValidationException;
 import JavalinAndCrud.model.Role;
 import JavalinAndCrud.model.User;
-import io.javalin.validation.ValidationException;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityNotFoundException;
 
-public class SecurityDAO implements ISecurityDAO {
+import java.util.List;
+
+public class SecurityDAO extends DAO<User, String> implements ISecurityDAO {
 
     private static SecurityDAO instance;
 
-    public static SecurityDAO getInstance(){
+    private SecurityDAO(Class<User> userClass, boolean isTesting) {
+        super(userClass, isTesting);
+    }
+
+    public static SecurityDAO getInstance(boolean isTesting){
         if(instance == null){
-            instance = new SecurityDAO();
+            instance = new SecurityDAO(User.class, isTesting);
         }
         return instance;
     }
@@ -18,17 +26,41 @@ public class SecurityDAO implements ISecurityDAO {
 
     @Override
     public User getVerifiedUser(String username, String password) throws ValidationException {
-        return null;
+        try(var em = emf.createEntityManager()){
+            System.out.println("USERNAME INSIDE GET_VERIFIED_USER: "+ username + "PASSWORD: " + password);
+            User user = em.find(User.class, username);
+            if(user == null){
+                throw new EntityNotFoundException("No user found with username: "+ username);
+            }
+            user.getRoles().size();
+            if(!user.verifyPassword(password)){
+                throw new ValidationException("Wrong password");
+            }
+            return user;
+        }
     }
 
     @Override
     public User createUser(String username, String password) {
-        return null;
+        try(var em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            User userEntity = new User(username, password);
+            userEntity.addRole(em.find(Role.class, "USER"));
+            em.persist(userEntity);
+            em.getTransaction().commit();
+            return userEntity;
+        }
     }
 
     @Override
     public Role createRole(String role) {
-        return null;
+        try(var em = emf.createEntityManager()){
+            Role roleEntity = em.find(Role.class, role);
+            if(roleEntity != null){
+                return roleEntity;
+            }
+        }
+        throw new EntityNotFoundException("Couldn't find role");
     }
 
     @Override
