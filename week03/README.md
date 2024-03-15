@@ -1,10 +1,19 @@
 # Assignment Readme Guidelines
+## Nicklas Waldemar Seier Winter - Cph-nw89
 
 ## Overview
 
-- Your name
-- which assignment are included
-- which one are completed and which one are not
+
+### Completed task:
+
+- Part 1
+- Part 2
+- The Point Exercise
+- Lombok Exercise
+- DAO Exercise
+- GLS Exercise
 
 ## Friday presentation
-- add the friday presentation into the weekly folder
+- JPQL
+
+----

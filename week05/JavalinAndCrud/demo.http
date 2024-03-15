@@ -1,0 +1,56 @@
+POST http://localhost:7007/api/hotel
+
+{
+"name":"test",
+"address":"Coolroad"
+}
+###
+
+PUT http://localhost:7007/api/hotel/1
+
+{
+"name":"updatedName",
+"address":"updatedRoad"
+}
+###
+
+DELETE http://localhost:7007/api/hotel/10
+###
+
+POST http://localhost:7007/api/room
+
+{
+"hotelId":15,
+"number":99,
+"price":900000
+
+}
+###
+
+PUT http://localhost:7007/api/room/5
+
+{
+"hotelId":3,
+"number":1234,
+"price":333
+}
+###
+
+DELETE http://localhost:7007/api/room/3
+###
+
+POST http://localhost:7007/api/auth/register
+
+{
+"username":"Gutestfemogtyve",
+"password":"Testpassword"
+}
+###
+
+POST http://localhost:7007/api/auth/login
+
+{
+"username":"Gutestfemogtyve",
+"password":"Testpassword"
+}
+###

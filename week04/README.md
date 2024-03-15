@@ -1,10 +1,17 @@
 # Assignment Readme Guidelines
+## Nicklas Waldemar Seier Winter - Cph-nw89
 
 ## Overview
 
-- Your name
-- which assignment are included
-- which one are completed and which one are not
+
+### Completed task:
+
+- Dolphin - Sorry for it not being in a separate package, but the code wouldn't compile when i did.
+- Recycling
+- SchoolExercise
+- GLSExercisePart2
 
 ## Friday presentation
-- add the friday presentation into the weekly folder
+- DTO Projection
+
+----
