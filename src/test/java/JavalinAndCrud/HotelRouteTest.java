@@ -8,6 +8,7 @@ import JavalinAndCrud.daos.HotelDAO;
 import JavalinAndCrud.daos.RoomDAO;
 import JavalinAndCrud.dtos.HotelDTO;
 import JavalinAndCrud.dtos.RoomDTO;
+import JavalinAndCrud.dtos.UserDTO;
 import JavalinAndCrud.model.Hotel;
 import JavalinAndCrud.model.Room;
 import io.restassured.RestAssured;
@@ -30,7 +31,7 @@ public class HotelRouteTest {
     @BeforeAll
     static void setupAll(){
         RestAssured.baseURI = "http://localhost:7777/api";
-        app.initiateServer().startServer(7777).setExceptionHandling().setRoutes(Routes.getRoutes());
+        app.initiateServer().startServer(7777).setExceptionHandling().setRoutes(Routes.getRoutes()).setRoutes(Routes.getSecuredRoutes()).setRoutes(Routes.getSecurityRoutes());
         hotelController = new HotelController(true);
         roomController = new RoomController(true);
         HotelDAO hotelDAO = HotelDAO.getInstance(true);
@@ -52,6 +53,25 @@ public class HotelRouteTest {
     static void afterAll(){
         app.closeServer();
     }
+
+    @Test
+    @DisplayName("Test of registration of user")
+    void registrationTest(){
+        RestAssured.given()
+                .log()
+                .all()
+                .with()
+                .body(new UserDTO("TestUsername", "TestPasword"))
+                .when()
+                .post("/auth/register")
+                .then()
+                .statusCode(200)
+                .assertThat()
+                .body("username", equalTo("TestUsername"))
+                .log()
+                .all();
+    }
+
 
     @Test
     @DisplayName("Test that server is running")
